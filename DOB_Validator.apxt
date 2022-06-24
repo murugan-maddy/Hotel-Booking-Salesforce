@@ -1,0 +1,14 @@
+trigger DOB_Validator on Hotel_Owner__c (before insert,before update) {
+    for(Hotel_Owner__c a:trigger.new){
+        date dob = a.Date_Of_Birth__c;
+    Integer age = Integer.valueOf(dob.daysBetween(date.Today()))/365;
+    if(age < 18)
+    {
+     a.addError('age should be greater than or equal to 18,but your age is'+age);
+    }
+        else
+        {
+            a.Age__c = age;
+        }
+}
+}
