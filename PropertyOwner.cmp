@@ -1,0 +1,52 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+
+<aura:attribute name="propertyOwnerId" type="string"></aura:attribute>
+
+    <lightning:recordViewForm recordId="{!v.propertyOwnerId}" objectApiName="Hotel_Owner__c">
+     
+        <lightning:layout>
+         
+        <div class="slds-box slds-grid slds-wrap slds-p-arond_small color:green">
+
+            <div class="slds-col" style="margin-top:3%;width:30%">
+                
+               
+                <lightning:outputField fieldName="Owner_Photo__c" variant="label-hidden"></lightning:outputField>
+
+                </div>
+
+                <div class="slds-col" style="margin-left:4%;">
+                 <div class="btnstyle1">
+                <lightning:layoutItem>
+
+                   <b>Name <lightning:outputField style="color:brown;font-weight:bold;" fieldName="Name" variant="label-hidden"></lightning:outputField>
+                    </b>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem>
+
+                    <b>Email Id<lightning:outputField style="color:brown;font-weight:bold;" fieldName="Email__c" variant="label-hidden"></lightning:outputField>
+                        </b>
+                    </lightning:layoutItem>
+
+                     <lightning:layoutItem>
+			
+                   <b>Phone Number<lightning:outputField style="color:brown;font-weight:bold;" fieldName="Phone_number__c" variant="label-hidden"></lightning:outputField>
+                         </b>
+                    </lightning:layoutItem>
+                    </div>
+
+                </div>
+            
+
+            </div>
+            
+
+        </lightning:layout>
+        
+             
+   
+
+    </lightning:recordViewForm>
+
+</aura:component>
