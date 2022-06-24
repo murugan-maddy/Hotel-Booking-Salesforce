@@ -1,0 +1,3 @@
+bithdayRemainder sg = new bithdayRemainder();
+String sch = '0 59 * * * ?';
+System.schedule('Birthday remainder',sch,sg);
