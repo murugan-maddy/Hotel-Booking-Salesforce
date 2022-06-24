@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+
+<aura:attribute name="location" type="string"></aura:attribute>   
+
+    <aura:attribute name="locationOptions" type="List"></aura:attribute>
+<aura:attribute name="NoOfBedroom" type="string"></aura:attribute>   
+    <aura:attribute name="NoOfBedroomOptions" type="List"></aura:attribute>
+    <aura:attribute name="Ratingfill" type="string"></aura:attribute>   
+    <aura:attribute name="RatingOptions" type="List"></aura:attribute>
+    <aura:attribute name="maxBudget" type="string"></aura:attribute>
+    
+    <aura:handler name="init" value="this" action="{!c.initFilter}"></aura:handler>
+
+   <aura:registerEvent name="PropertyFilterEvent" type="c:PropertyFilterEvent"></aura:registerEvent>
+
+    <lightning:layout multiplerows="true" class="filterlayout">
+
+        <lightning:layoutitem padding="around-small">
+
+            <div class="header-column">             
+
+                <lightning:combobox label="Locality"  fieldLevelHelp="Search property based on locality"
+
+                    variant="label-stacked" value="{!v.location}" options="{!v.locationOptions}"  >
+
+                </lightning:combobox>               
+
+            </div>
+
+        </lightning:layoutitem>
+
+       <lightning:layoutitem padding="around-small">
+
+            <div class="header-column">             
+
+                <lightning:combobox label="No of Bedroom"  fieldLevelHelp="Search property based on Number of Bedroom"
+
+                    variant="label-stacked" value="{!v.NoOfBedroom}" options="{!v.NoOfBedroomOptions}"  onchange="{!c.handlefilterChange}">
+
+                </lightning:combobox>               
+
+            </div>
+
+        </lightning:layoutitem>
+        <lightning:layoutitem padding="around-small">
+
+            <div class="header-column">             
+
+                <lightning:combobox label="Hotel Rating"  fieldLevelHelp="Search property based on Rating"
+
+                    variant="label-stacked" value="{!v.Ratingfill}" options="{!v.RatingOptions}"  >
+
+                </lightning:combobox>               
+
+            </div>
+
+        </lightning:layoutitem>
+        <lightning:layoutitem padding="around-small">
+
+            <div class="header-column">                           
+            <lightning:input type="number" value="{!v.maxBudget}"  fieldLevelHelp="Search property based on your budget" name="maxbudget" label="Maximum Budget" placeholder="Enter maximum Budget"></lightning:input>
+            </div>
+
+        </lightning:layoutitem>
+
+    </lightning:layout>
+
+</aura:component>
