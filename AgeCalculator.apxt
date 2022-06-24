@@ -1,0 +1,14 @@
+trigger AgeCalculator on House_Land_Owner__c (before insert,before update) {
+for(House_Land_Owner__c a:trigger.new){
+        if(a.DOB_Date_Of_Birth__c > system.today())
+        {
+           a.addError('Selected age should not be todays date or future date');
+        }
+      else
+      {
+        date dob = a.DOB_Date_Of_Birth__c;
+        Integer age = Integer.valueOf(dob.daysBetween(Date.Today()))/365;
+        a.Age__c=age;
+      }
+}
+}
