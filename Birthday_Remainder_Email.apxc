@@ -1,0 +1,31 @@
+global class Bithday_Remainder_Email implements Database.Batchable<SObject>
+{
+    global Database.QueryLocator start(Database.BatchableContext bc)
+    {
+        String q= 'Select id,Email__c,Date_Of_Birth__c,Name FROM Hotel_Owner__c where Interested_in_birthday_Remainder_Mail__c= true';
+        return Database.getQueryLocator(q); 
+    }
+    
+    global void execute(Database.BatchableContext bc, List<Hotel_Owner__c> batchrecords)
+    {       
+        String[] toAddress=new List<String>();       
+        for(Hotel_Owner__c con : batchrecords) 
+        { 
+            if(con.Date_Of_Birth__c.day()== system.today().day() && con.Date_Of_Birth__c.month() == system.today().month())
+        {
+                toAddress.add(con.Email__c);
+        }
+        } 
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        mail.setToAddresses(toAddress);
+        mail.setSubject('Wish u a very happy birthday');
+        mail.setHtmlBody('Hello <br> Happy birthday <br> we wish you a very happy th birthday ');
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[] {mail});       
+    }
+    
+    global void finish(Database.BatchableContext bc)
+    {
+        System.debug('Mail Sent');
+    } 
+    
+}
