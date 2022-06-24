@@ -1,0 +1,6 @@
+global class bithdayRemainder implements Schedulable {
+    global void execute(SchedulableContext sc){
+        Bithday_Remainder_Email ge = new Bithday_Remainder_Email();
+        Database.executeBatch(ge);
+    }
+}
