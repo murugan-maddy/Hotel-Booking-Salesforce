@@ -1,0 +1,6 @@
+<aura:event type="Component" description="Event template" >
+    <aura:attribute name="locationFilter" type="string"></aura:attribute>
+    <aura:attribute name="BedroomFilter" type="string"></aura:attribute>
+    <aura:attribute name="RatingFilter" type="string"></aura:attribute>
+    <aura:attribute name="BudgetFilter" type="string"></aura:attribute>
+</aura:event>
