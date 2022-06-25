@@ -2,15 +2,27 @@ trigger AmountGenerator on Hotel_Booking_Enquiry__c (before insert,before update
     
 for(Hotel_Booking_Enquiry__c a:Trigger.new)
 {
-   Hotel_Property__c property=[select id, Available_from__c , Rent__c , Status__c from Hotel_Property__c where id= :a.Hotel_Property_Lookup__c];
+   Hotel_Property__c property=[select id, Available_from__c , Rent__c ,Name, Status__c from Hotel_Property__c where id= :a.Hotel_Property_Lookup__c];
         
 
  if( a.Booking__c =='Confirm' && property.Status__c=='Available' && a.Approval_Status__c=='Approved'  && a.Number_of_Days_Stay__c >= 1 )
   {
       Decimal z=Decimal.valueof(a.Amount_Negotiation__c)/100;
       a.Final_Amount_After_Amount_Negotiation__c =(property.Rent__c -(property.Rent__c * z) )* a.Number_of_Days_Stay__c;
-      
+      a.Message__c='Your Booking Has Been Confirmed You will get a mail Notification or our manager will be contacting you shortly. Final Amount need to be paid is '+a.Final_Amount_After_Amount_Negotiation__c+' For the hotel '+property.Name;
   }
+    else if(a.Booking__c =='Confirm'&& property.Status__c !='Available' && a.Approval_Status__c=='Approved'  && a.Number_of_Days_Stay__c >= 1 )
+    {
+        
+        a.addError('Sorry to Inform u that your selected hotel '+property.Name+' is not available at the moment.So '+ a.Name +' you can select any other hotel which is available');
+        
+    }
+    else if( a.Booking__c !='Confirm' && property.Status__c=='Available' && a.Approval_Status__c=='Approved'  && a.Number_of_Days_Stay__c >= 1 )
+    {
+        Decimal z=Decimal.valueof(a.Amount_Negotiation__c)/100;
+      a.Final_Amount_After_Amount_Negotiation__c =(property.Rent__c -(property.Rent__c * z) )* a.Number_of_Days_Stay__c;
+        a.Message__c='You have selected either selected Not Confirm or Just an Enquiry for the booking conformation so we are please to inform u that your Hotel Booking amount is '+a.Final_Amount_After_Amount_Negotiation__c+'If the amount meets your criteria please select <Confirm> in booking confirmation field '; 
+    }
 }
 
 }
