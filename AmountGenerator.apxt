@@ -1,0 +1,16 @@
+trigger AmountGenerator on Hotel_Booking_Enquiry__c (before insert,before update) {
+    
+for(Hotel_Booking_Enquiry__c a:Trigger.new)
+{
+   Hotel_Property__c property=[select id, Available_from__c , Rent__c , Status__c from Hotel_Property__c where id= :a.Hotel_Property_Lookup__c];
+        
+
+ if( a.Booking__c =='Confirm' && property.Status__c=='Available' && a.Approval_Status__c=='Approved'  && a.Number_of_Days_Stay__c >= 1 )
+  {
+      Decimal z=Decimal.valueof(a.Amount_Negotiation__c)/100;
+      a.Final_Amount_After_Amount_Negotiation__c =(property.Rent__c -(property.Rent__c * z) )* a.Number_of_Days_Stay__c;
+      
+  }
+}
+
+}
