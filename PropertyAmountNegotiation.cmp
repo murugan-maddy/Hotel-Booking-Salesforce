@@ -12,13 +12,17 @@
 
             <aura:set attribute="else">
 
-            <div class="slds-p-around_small">
+            <div class="slds-p-around_small" style="background-color:#ECEAE1 ;">
           
                 <lightning:recordEditForm objectApiName="Hotel_Booking_Enquiry__c" onsuccess="{!c.handleSuccess}">
+                    
                    <lightning:inputField   fieldName="Hotel_Property_Lookup__c" value="{!v.propertyId}" variant="label-stacked" disabled="false" ></lightning:inputField>
                      <lightning:inputField fieldName="Name"  variant="label-stacked" ></lightning:inputField>
                      <lightning:inputField fieldName="Phone__c"  variant="label-stacked"></lightning:inputField>
                      <lightning:inputField fieldName="Email__c"  variant="label-stacked"></lightning:inputField>
+                    <lightning:inputField fieldName="Check_in_Date__c"  variant="label-stacked"></lightning:inputField>
+                    <lightning:inputField fieldName="Number_of_Days_Stay__c"  variant="label-stacked"></lightning:inputField>
+                    <lightning:inputField fieldName="Booking__c"  variant="label-stacked"></lightning:inputField>
                      <lightning:inputField fieldName="Amount_Negotiation__c"  variant="label-stacked"></lightning:inputField>
                        <lightning:button type="submit" name="update" label="Submit Enquiery" variant="brand" class="slds-m-top__small"></lightning:button>
                    </lightning:recordEditForm>
