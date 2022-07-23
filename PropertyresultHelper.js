@@ -17,7 +17,7 @@ var action = component.get('c.getLatestProperty');
         $A.enqueueAction(action,false);
 
 },
-    PropertyFilterEvent:function(component,event,helper)
+    fetchFilteredProperty:function(component,event,helper)
     {
         var locFilter=event.getParam("locationFilter");
         var BedroomFilter=event.getParam("BedroomFilter");
@@ -25,7 +25,10 @@ var action = component.get('c.getLatestProperty');
         var BudgetFilter=event.getParam("BudgetFilter");
         var action=component.get('c.getSearchedProperty');
         action.setParms({
-            'location':locFilter,'bedroom':BedroomFilter,'Rating':RatingFilter,'maxbudget':BudgetFilter
+'location':locFilter,
+            'bedroom':BedroomFilter,
+            'Rating':RatingFilter,
+            'maxbudget':BudgetFilter
         });
         action.setCallback(this,function(response){
             var responseValue=response.getReturnValue();
