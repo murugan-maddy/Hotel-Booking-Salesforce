@@ -47,7 +47,11 @@ helper.fetchAllPropertyHelper(component, event, helper);
     },
     closeAmountDetailsCheck:function(component, event, helper) {
      component.set('v.AmountDetailsCheck',"false");
+    },
+    handlefilterChange:function(component, event, helper) {
+        console.log('Inside handlePropertyFilter');
+
+    helper.fetchFilteredProperty(component, event, helper);
     }
-    
     
 })
