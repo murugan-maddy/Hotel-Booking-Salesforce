@@ -13,9 +13,10 @@
     <aura:attribute name="AmountDisp" type="string"></aura:attribute>
     
     <aura:handler name="init" value="{!this}" action="{!c.fetchAllProperty}"/>
-    <aura:handler name="PropertyFilterEvent" event="c:PropertyFilterEvent" action="{!c.PropertyFilterEvent}"></aura:handler>
-<c:PropertyFilter></c:PropertyFilter>
+    <!--<aura:handler name="PropertyFilterEvent" event="c:PropertyFilterEvent" action="{!c.handlefilterChange}"></aura:handler>-->
+<!--<c:PropertyFilter></c:PropertyFilter>-->
     <aura:if isTrue="{!v.propertiesFound}">
+     
 
         <lightning:layout multipleRows="true">
 
@@ -25,7 +26,7 @@
 
                     <lightning:layout multipleRows="true">
 
-                        <div class="slds-box" style="width:100%; background-color:rgb(30, 10, 250);">
+                        <div class="slds-box" style="width:100%; background-color:#4D4D4D;">
 
 <lightning:layout>
 
@@ -34,26 +35,35 @@
                                 <lightning:formattedRichText value="{!prop.Hotel_Photo__c}"></lightning:formattedRichText>
 
                                 </lightning:layoutItem>                               
-                             <div class="slds-box" style="width:100%; background-color:#9CC3D5FF;">
+                             <div class="slds-box" style="width:100%; background-color:#ECEAE1;">
 			                 <lightning:layoutItem size="8" padding="around-small">
                                  <lightning:card title="{!prop.Name}">
                                      <lightning:layoutItem size="12">
-                                     <b style="color:green">&nbsp;Amount:{!prop.Rent__c}</b>
+                                     <b style="color:green">&nbsp;Amount :{!prop.Rent__c}</b>
                                      </lightning:layoutItem>
                                      <lightning:layoutItem size="12">
-                                     <p style="color:green">&nbsp;Location:{!prop.Location__c}</p>
+                                     <p style="color:black">&nbsp;Location : {!prop.Country__c} - {!prop.Location__c}</p>
                                      </lightning:layoutItem>
                                      <lightning:layoutItem size="12">
-                                     <p style="color:green">&nbsp;Status:{!prop.Status__c}</p>
+                                     <p style="color:black">&nbsp;Status :{!prop.Status__c}</p>
                                      </lightning:layoutItem>
                                      <lightning:layoutItem size="12">
-                                     <p style="color:green">&nbsp;Bedroom:{!prop.Number_of_Bathroom__c}&nbsp;Bathroom:{!prop.Number_of_bed_rooms__c}</p>
+                                     <p style="color:black">&nbsp;Bedroom :{!prop.Number_of_Bathroom__c}&nbsp;Bathroom:{!prop.Number_of_bed_rooms__c}</p>
                                      </lightning:layoutItem>
                                      <lightning:layoutItem size="12">
     								<aura:if isTrue="{!prop.Verified_Hotel__c}">
    										 <b style="color:black">&nbsp;Verified</b>
     								<aura:set attribute="else">
      									 <b style="color:red">&nbsp;Not Verified</b>
+    								</aura:set>
+  									</aura:if> 
+									</lightning:layoutItem>
+                                     
+                                     <lightning:layoutItem size="12">
+    								<aura:if isTrue="{!prop.Status__c=='Available'}">
+   										 <b style="color:green">&nbsp;Hotel Ready for booking</b>
+    								<aura:set attribute="else">
+     									 <b style="color:black">&nbsp;Hotel Not Available for booking</b>
     								</aura:set>
   									</aura:if> 
 									</lightning:layoutItem>
@@ -65,11 +75,11 @@
                                                         value="{!prop.Hotel_Owner_Lookup__c}" onclick="{!c.ownerDetailsClick}"></lightning:button>
                                   </lightning:buttonGroup>
                                      <lightning:buttonGroup>
-                                      <lightning:button class="btnstyle" variant="success" label="Amount negotiate" 
-                                                        value="{!prop.Rent__c}" onclick="{!c.openNegotiationDetails}"></lightning:button>
+                                      <lightning:button class="btnstyle" variant="success" label="Hotel Booking" 
+                                                        value="{!prop.Name}" onclick="{!c.openNegotiationDetails}"></lightning:button>
                                   </lightning:buttonGroup>
                                                                           <lightning:buttonGroup>
-                                      <lightning:button class="btnstyle" variant="success" label="Contact" 
+                                      <lightning:button class="btnstyle" variant="success" label="Hotel Detail" 
                                                         value="{!prop.Id}" onclick="{!c.AmountDetailsCheck}"></lightning:button>
                                   </lightning:buttonGroup>
                                      
@@ -79,7 +89,7 @@
                             </lightning:layout>                           
                               
                         </div>
-
+                         
                     </lightning:layout>
 
                 </lightning:layoutItem>
@@ -90,7 +100,7 @@
 
         <aura:set attribute="else">
 
-            <span>Properties are not listed yet as per your selection. Please stay tune to future listing.</span>
+            <span>Properties are not listed yet......</span>
 
         </aura:set>
 
@@ -104,14 +114,14 @@
                 <div class="slds-modal__container">
 
                     <header class="slds-modal__header">
-
+                      
                         <lightning:card title="Hotel Owner" iconName="standard:people">
-                            
+                           
 <lightning:buttonIcon  class="slds-modal__close" iconName="utility:close"
 
                           onclick="{!c.closeOwnerModal}"></lightning:buttonIcon>
                               </lightning:card>
-
+                        	
                     </header>
 
                     <div class="slds-modal__content slds-p-around_medium" >
@@ -164,7 +174,7 @@
               <div class="slds-modal__container">
 
                 <header class="slds-modal__header">
-                     <lightning:card title="Final Amount" iconName="custom:custom51">
+                     <lightning:card title="About Hotel" iconName="custom:custom51">
 
                     <lightning:buttonIcon   class="slds-modal__close" iconName="utility:close" onclick="{!c.closeAmountDetailsCheck}"></lightning:buttonIcon>
                          </lightning:card>
